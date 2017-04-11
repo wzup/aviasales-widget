@@ -1,21 +1,16 @@
 'use strict';
 
-
-// const util = require('util');
 const React = require('react');
 // const ReactDOM = require('react-dom');
-
-// import { DateRange } from 'react-date-range';
 const DatePicker = require('./DatePicker');
-
 let css = require('Widget.scss');
-// let dp  = require('react-datepicker/dist/react-datepicker.css');
-
-// console.log(dp);
 
 
 class Widget extends React.Component {
     render() {
+        /**
+         * @todo Если по серьезному, то нужна валидация входящих props. Не делаю.
+         */
         let button_color = this.props.button_color ? this.props.button_color : '#f5a523';
         let bg_color = this.props.button_color ? this.props.bg_color : '#498fe1';
         let font_color = this.props.button_color ? this.props.font_color : '#fff';
@@ -27,16 +22,6 @@ class Widget extends React.Component {
                 </div>
                 <div className={css.contentDiv}>
                     <div className={css.fact}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</div>
-                    {/*<div className={css.control}>
-                        <div className={css.outBox}></div>
-                        <div className={css.outBox}><DatePicker /></div>
-                        <div className={css.rtBox}></div>
-
-                        <DatePicker className="rtBox" />
-                        <div className={css.searchBtnBox}>
-                            <button className={css.btn}>SEARCH</button>
-                        </div>
-                    </div>*/}
                     <DatePicker wrapperClassName={css.control}>
                         <div className={css.searchBtnBox}>
                             <button className={css.btn} style={{ backgroundColor: button_color, color: font_color }}>SEARCH</button>
@@ -52,31 +37,14 @@ class Widget extends React.Component {
         //     value: null,
         // };
     }
-    componentDidMount() {
-        let a = 10;
-    }
-    componentWillUnmount() {
-        let a = 10;
-    }
-    componentWillUpdate(nextProps, nextState) {
-        let a = 10;
-    }''
-    componentDidUpdate(prevProps, prevState) {
-        let a = 10;
-    }
-    componentWillMount() {
-        let a = 10;
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        let a = 10;
-        return true;
-    }
-    componentWillAppear(cb) {
-        let a = 10;
-    }
-    componentWillEnter(cb) {
-        let a = 10;
-    }
+    componentDidMount() { }
+    componentWillUnmount() { }
+    componentWillUpdate(nextProps, nextState) { }
+    componentDidUpdate(prevProps, prevState) { }
+    componentWillMount() { }
+    shouldComponentUpdate(nextProps, nextState) { return true; }
+    componentWillAppear(cb) { }
+    componentWillEnter(cb) { }
 };
 
 module.exports = Widget;

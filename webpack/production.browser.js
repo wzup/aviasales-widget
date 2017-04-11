@@ -1,8 +1,6 @@
 'use strict';
 
 /**
- * Для дева. Этот конфиг юзаю во время разработки.
- *
  * --watch перерезагружает при изменениях в entry файлах
  * --debug Switch loaders to debug mode, false
  * --progress Print compilation progress in percentage, false
@@ -30,16 +28,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const I18nPlugin = require("i18n-webpack-plugin");
-const config = require('./../config');
-let i18n = require('../routes/i18n');
 
-// console.log('\n', __filename, '[path.resolve(__filename)] :', path.resolve(__filename));
-// console.log('\n', __filename, '[process.cwd()] :', process.cwd());
-// console.log('\n', __filename, '[__dirname] :', __dirname);
-// console.log('\n', __filename, '[path.join] :', path.join('..', 'assets/js'));
-// console.log('\n', __filename, '[path.resolve] :', path.resolve('..', 'assets/js'));
-// console.log('\n', __filename, '[text] :\n', config[NODE_ENV].assets_path.react);
 
 /* Для обычного .scss (не .local.scss) Сохраняю use:[] массив. Это конфиг без ExtractTextPlugin */
 let scssUse = [
@@ -77,30 +66,50 @@ let scssLocalUse = [
     'sass-loader',
 ]
 
+
+let cssUse = [
+    'css-loader?modules&-minimize&-sourceMap',
+    {
+        loader: 'postcss-loader',
+        options: {
+            plugins: function () {
+                return [
+                    // require('precss'),
+                    require('autoprefixer')
+                ];
+            }
+        }
+    },
+]
+
+
 module.exports = {
     context: path.resolve(__dirname, '..'),
     entry: {
-        'index': config.src.js + path.sep + 'ep_browser.js', // реакт версия
+        'index': path.resolve(__dirname, '..', 'src/js/browser.js'), // только для css globals
+        'sdk': path.resolve(__dirname, '..', 'src/js/sdk.js'), // сделать бандл виджета для вставки на страницу
+        'sa_widget': path.resolve(__dirname, '..', 'src/js/sa_widget.js'), // сгенерить css виджета
         'vendors': [
             // 'jquery',
             'react',
             'react-dom',
-            'react-sticky',
-            'react-redux',
-            'react-router',
-            'redux-thunk',
-            'redux-logger',
-            'react-addons-css-transition-group',
-            'classnames',
+            // 'react-redux',
+            // 'react-router',
+            // 'redux-thunk',
+            // 'redux-logger',
+            // 'react-addons-css-transition-group',
+            // 'classnames',
         ]
     },
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, '..', 'public'),
         publicPath: '',
-        pathinfo: true,
+        pathinfo: false,
         sourceMapFilename: "[file].map",
-        devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[id]"
+        devtoolModuleFilenameTemplate: "webpack:///[resource-path]?[id]",
+        libraryTarget: "umd",
+        library: ['AS'],
     },
     module: {
         rules: [
@@ -113,7 +122,8 @@ module.exports = {
                     test: /^.*\.local\.scss$/i,
                     // exclude: '',
                     include: [
-                        config.src.sass,
+                        path.resolve(__dirname, '..', 'node_modules'),
+                        path.resolve(__dirname, '..', 'src/sass'),
                     ]
                 },
                 use: ExtractTextPlugin.extract({
@@ -129,13 +139,30 @@ module.exports = {
                     test: /^((?!\.local).)*scss$/i,
                     // exclude: '',
                     include: [
-                        config.src.sass,
-                        // path.resolve(__dirname, '..', 'node_modules/bootstrap-sass/assets/stylesheets'),
+                        path.resolve(__dirname, '..', 'node_modules'),
+                        path.resolve(__dirname, '..', 'src/sass')
                     ]
                 },
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: scssUse,
+                }),
+            },
+            /* .css */
+            {
+                resource: {
+                    test: /\.css$/i,
+                    // exclude: '',
+                    include: [
+                        path.resolve(__dirname, '..', 'node_modules', 'bootstrap/scss'),
+                        path.resolve(__dirname, '..', 'node_modules'),
+                        path.resolve(__dirname, '..', 'src/sass'),
+                    ],
+                },
+                // use: cssUse,
+                use: ExtractTextPlugin.extract({
+                    // fallback: 'style-loader',
+                    use: cssUse,
                 }),
             },
             /* .js */
@@ -147,8 +174,8 @@ module.exports = {
                     test: /\.js$/,
                     // exclude: path.join(__dirname, '..', 'node_modules'),
                     include: [
-                        path.join(__dirname, '..', 'node_modules'),
-                        config.src.js,
+                        path.resolve(__dirname, '..', 'node_modules'),
+                        path.resolve(__dirname, '..', 'src/js')
                     ]
                 },
                 use: [{
@@ -180,10 +207,9 @@ module.exports = {
         modules: [
             path.resolve(__dirname, '..', 'node_modules'),
             path.resolve(__dirname, '..', 'node_modules/bootstrap-sass/assets/stylesheets'),
-            config.src.js, // src/js
-            config.src.js + path.sep + 'drafts', // src/js/drafts
-            config.src.sass, // src/sass
-            config.src + path.sep + 'img', // src/img
+            path.resolve(__dirname, '..', 'src/js'), // src/js
+            path.resolve(__dirname, '..', 'src/sass'), // src/sass
+            path.resolve(__dirname, '..', 'src/img') // src/img
             // path.resolve(__dirname, "..", "node_modules/compass-mixins/lib"),
         ],
         extensions: ['*', '.js', '.jsx', '.react', '.scss', '.json', '.jpeg', '.jpg', '.png', '.gif', '.svg', '.dust', '.css', '.less'],
@@ -191,12 +217,16 @@ module.exports = {
     resolveLoader: {},
     plugins: [
         // new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-        new webpack.optimize.CommonsChunkPlugin({
-            // name: "public/js/vendors",
-            // name: 'vendors',
-            names: ["commons", "vendors"],
-            filename: "js/[name].js",
-            minChunks: Infinity
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     // name: "public/js/vendors",
+        //     // name: 'vendors',
+        //     names: ["commons", "vendors"],
+        //     filename: "js/[name].js",
+        //     minChunks: Infinity
+        // }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
         }),
         new ExtractTextPlugin({
             // filename: path.resolve(__dirname, '..', 'public/css/[name].css'), // "./../css/[name].css"

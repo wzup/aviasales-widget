@@ -8,8 +8,8 @@ const connect = require( 'connect' );
 const connectRoute = require('connect-route');
 const serveStatic = require('serve-static');
 const http = require( 'http' );
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+// const React = require('react');
+// const ReactDOMServer = require('react-dom/server');
 
 
 const app = connect();
@@ -19,11 +19,6 @@ const compression = require('compression');
 app.use( compression() );
 app.use(serveStatic(path.join(__dirname, 'public')));
 
-// store session state in browser cookie
-// const cookieSession = require('cookie-session');
-// app.use(cookieSession({
-//     keys: ['secret1', 'secret2']
-// }));
 
 // parse urlencoded request bodies into req.body
 const bodyParser = require( 'body-parser' );
@@ -60,33 +55,8 @@ app.use(connectRoute(router => {
             res.end(data);
         })
     });
-
-    /* POST /get_widget */
-    router.post('/get_widget', (req, res, next) => {
-        res.setHeader('Content-Type', 'application/javascript');
-        let elem = React.createElement(widget, {
-                button_color: req.body.button_color,
-                background_color: req.body.background_color,
-                font_color: req.body.font_color
-            });
-        res.end(JSON.stringify({
-            error: null,
-            'req.url': req.url,
-            widget: JSON.stringify(widget()),
-            widget: widget.toString()
-        }));
-    });
 }))
 
-
-// json
-// app.use('/json', function( req, res, next ) {
-//     res.setHeader('Content-Type', 'application/json');
-//     res.end(JSON.stringify({
-//         error: null,
-//         'req.path': req.path,
-//     }));
-// } );
 
 
 //create node.js http server and listen on port

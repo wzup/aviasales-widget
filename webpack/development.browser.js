@@ -28,8 +28,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const config = require('./../config');
-// let i18n = require('../routes/i18n');
+
 
 /* Для обычного .scss (не .local.scss) Сохраняю use:[] массив. Это конфиг без ExtractTextPlugin */
 let scssUse = [
@@ -87,9 +86,9 @@ let cssUse = [
 module.exports = {
     context: path.resolve(__dirname, '..'),
     entry: {
-        'index': path.resolve(__dirname, '..', 'src/js/browser.js'), // реакт версия, \src\js\ep_browser.js
-        'sdk': path.resolve(__dirname, '..', 'src/js/sdk.js'),
-        'sa_widget': path.resolve(__dirname, '..', 'src/js/sa_widget.js'),
+        'index': path.resolve(__dirname, '..', 'src/js/browser.js'), // только для css globals
+        'sdk': path.resolve(__dirname, '..', 'src/js/sdk.js'), // сделать бандл виджета для вставки на страницу
+        'sa_widget': path.resolve(__dirname, '..', 'src/js/sa_widget.js'), // сгенерить css виджета
         'vendors': [
             // 'jquery',
             'react',

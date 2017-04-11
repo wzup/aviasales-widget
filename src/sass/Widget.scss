@@ -1,5 +1,4 @@
-// @import "react-dates/lib/css/_datepicker.css";
-// @import "../../node_modules/react-dates/css/styles";
+
 @import "../../node_modules/react-datepicker/dist/react-datepicker";
 
 $text-color: #fff !default;
@@ -13,13 +12,21 @@ $font-size: 14px !default;
 
 @mixin dpBox() {
     position: relative;
-    // background-color: #fff;
+    background-color: #fff;
     width: 100%;
-    // height: 14px;
-    // padding: 10px;
-    // display: inline-block;
     // box-sizing: border-box;
     transition: all 500ms;
+}
+
+@mixin dpAfter() {
+    content: url(/img/calendar_icon.svg);
+    position: absolute;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 17px;
+    background-position: 0px 0px;
+    right: 10px;
+    top: calc((30px - 17px) / 2);
 }
 
 /**
@@ -93,14 +100,7 @@ $font-size: 14px !default;
                 order: 1;
                 @include dpBox;
                 &:after {
-                    content: url(/img/calendar_icon.svg);
-                    position: absolute;
-                    background-repeat: no-repeat;
-                    width: 15px;
-                    height: 17px;
-                    background-position: 0px 0px;
-                    right: 10px;
-                    top: calc((30px - 17px) / 2);
+                    @include dpAfter;
                 }
             }
 
@@ -109,14 +109,7 @@ $font-size: 14px !default;
                 @include dpBox;
                 margin-top: 10px;
                 &:after {
-                    content: url(/img/calendar_icon.svg);
-                    position: absolute;
-                    background-repeat: no-repeat;
-                    width: 15px;
-                    height: 17px;
-                    background-position: 0px 0px;
-                    right: 10px;
-                    top: calc((30px - 17px) / 2);
+                    @include dpAfter;
                 }
             }
 
@@ -248,10 +241,11 @@ $font-size: 14px !default;
     }
 }
 
+
 /**
- * Селедующий: w: >600px
+ * Селедующий: w: >900px
  */
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 900px) {
     .saWidget {
         max-width: 1024px;
         .contentDiv {
