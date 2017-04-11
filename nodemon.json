@@ -1,0 +1,13 @@
+{
+    "_comment": "запускать просто указать: nodemon (без параметров). Здесь в конфиге параметры в 'exec'",
+    "restartable": "rs",
+    "verbose": true,
+    "env": {
+        "NODE_ENV": "development",
+        "DEBUG_COLORS": true
+    },
+    "ignore": ["routes/___*.js", "routes/___*.html"],
+    "debug": true,
+    "ext": "js dust html css scss rb json htpasswd",
+    "exec": "node --debug=5859 ./index.js"
+}

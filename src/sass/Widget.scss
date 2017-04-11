@@ -1,0 +1,270 @@
+// @import "react-dates/lib/css/_datepicker.css";
+// @import "../../node_modules/react-dates/css/styles";
+@import "../../node_modules/react-datepicker/dist/react-datepicker";
+
+$text-color: #fff !default;
+$pr: 20px !default;
+$pl: 20px !default;
+$pt: 15px !default;
+$pb: 15px !default;
+$min-width: 200px !default;
+$bg-color: #498fe1 !default;
+$font-size: 14px !default;
+
+@mixin dpBox() {
+    position: relative;
+    // background-color: #fff;
+    width: 100%;
+    // height: 14px;
+    // padding: 10px;
+    // display: inline-block;
+    // box-sizing: border-box;
+    transition: all 500ms;
+}
+
+/**
+ * от small к big
+ * default-ный - самый маленький w: 200px
+ */
+.saWidget {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    min-width: $min-width;
+    font-family: 'Roboto', 'Open Sans', arial,sans-serif;
+    color: $text-color;
+    font-size: $font-size;
+    background-color: $bg-color;
+    box-sizing: border-box;
+    padding: {
+        left: $pl;
+        right: $pr;
+        top: $pt;
+        bottom: $pb;
+    }
+
+    .titleDiv {
+        order: 1;
+        flex-basis: 100%;
+        .titleH {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+        }
+    }
+    .contentDiv {
+        order: 2;
+        margin-top: 15px;
+        transition: all 300ms;
+
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+
+        .fact {
+            order: 2;
+            font-size: smaller;
+            margin-top: 20px;
+            transition: all 500ms;
+        }
+
+        .control {
+            order: 1;
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            align-content: stretch;
+            line-height: 29px;
+
+            margin-top: 0px;
+            transition: all 500ms;
+
+            .outBox {
+                order: 1;
+                @include dpBox;
+                &:after {
+                    content: url(/img/calendar_icon.svg);
+                    position: absolute;
+                    background-repeat: no-repeat;
+                    width: 15px;
+                    height: 17px;
+                    background-position: 0px 0px;
+                    right: 10px;
+                    top: calc((30px - 17px) / 2);
+                }
+            }
+
+            .rtBox {
+                order: 2;
+                @include dpBox;
+                margin-top: 10px;
+                &:after {
+                    content: url(/img/calendar_icon.svg);
+                    position: absolute;
+                    background-repeat: no-repeat;
+                    width: 15px;
+                    height: 17px;
+                    background-position: 0px 0px;
+                    right: 10px;
+                    top: calc((30px - 17px) / 2);
+                }
+            }
+
+            .searchBtnBox {
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
+                transition: all 500ms ease-out;
+            }
+
+            .react-datepicker__input-container {
+                width: 100%;
+                .dp {
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    line-height: inherit;
+                    padding: 0px 10px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-repeat: repeat-x;
+    background-position: -1px -1px;
+    background-size: 110% 110%;
+    border: 1px solid rgba(27,31,35,0.2);
+    border-radius: 0.25em;
+    appearance: none;
+    width: 100%;
+
+    color: #fff;
+    background-color: #f5a523;
+}
+
+.btn-sm {
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+/**
+ * Селедующий: w: >300px
+ */
+@media screen and (min-width: 300px) {
+    .saWidget {
+        .contentDiv {
+            .fact {
+                order: 1;
+                margin-top: 0px;
+            }
+            .control {
+                order: 2;
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                flex-direction: row;
+
+                .outBox {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    flex-basis: 49%;
+                    display: initial;
+                }
+
+                .rtBox {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    flex-basis: 49%;
+                    margin-top: 0px;
+                }
+
+                .searchBtnBox {
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                    flex-basis: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+/**
+ * Селедующий: w: >600px
+ */
+@media screen and (min-width: 600px) {
+    .saWidget {
+        max-width: 1024px;
+        .contentDiv {
+            width: 100%;
+            .fact {
+                padding-right: 40px;
+                flex-basis: 45%;
+            }
+            .control {
+                .outBox {
+                    flex-shrink: 0;
+                    flex-basis: 33%;
+                    display: initial;
+                }
+
+                .rtBox {
+                    flex-shrink: 0;
+                    flex-basis: 33%;
+                    margin-top: 0px;
+                }
+
+                .searchBtnBox {
+                    flex-shrink: 0;
+                    flex-grow: 0;
+                    flex-basis: 30%;
+                    margin-top: 0px;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Селедующий: w: >600px
+ */
+@media screen and (min-width: 1000px) {
+    .saWidget {
+        max-width: 1024px;
+        .contentDiv {
+            flex-direction: row;
+            width: 100%;
+            .fact {
+                padding-right: 40px;
+                flex-basis: 43%;
+            }
+            .control {
+                margin-top: 0px;
+                // margin-left: 20px;
+            }
+        }
+    }
+}
