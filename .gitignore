@@ -57,6 +57,7 @@ public/*.svg
 webpack/v1
 drafts
 test.*
+README.md
 
 
 ### Intellij ###
