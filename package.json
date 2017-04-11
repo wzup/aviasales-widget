@@ -4,7 +4,10 @@
   "description": "A test assignment for frontend developer at Aviasales' Travelpayouts company",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.conf.js -p --progress --display-depth --colors --display-chunks",
+    "start": "cross-env NODE_ENV=production node ./index.js",
+    "postinstall": "cross-env NODE_ENV=production webpack --config webpack.conf.js -p --progress --display-depth --colors --display-chunks"
   },
   "keywords": [
     "assignment",
@@ -34,6 +37,7 @@
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "node-sass": "^4.5.2",
