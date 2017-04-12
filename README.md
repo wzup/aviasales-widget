@@ -1,7 +1,7 @@
 # aviasales-widget
 A date-range picker widget for Travelpayouts company of Aviasales OTA 
 
-![Demo Screenshot](https://github.com/wzup/aviasales-widget/tree/master/src/img/screenshot.png "Logo Title Text 1")
+![alt text](https://raw.githubusercontent.com/wzup/aviasales-widget/master/src/img/screenshot.png "Widget's Screenshot")
 
 (Link for the initial assignment https://github.com/KosyanMedia/Front-end_TP_test)
 
