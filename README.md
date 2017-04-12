@@ -46,29 +46,6 @@ However, below is a detailed explanation.
 ```
 3. Initialize the widget.
 
-- `AS` means "Aviasales". It is a namespace for widget's properties and methods. A namespace is used to avoid polluting global `window` scope.
-- `init` is a method to initialize and run the widget.
-```
-let params = { bg_color: 'red' };
-AS.init(params);
-```
-- `id` is an arbitrary id attribute of any block node you want your widget be inserted to.
-```
-<section id="sa-widget">
-    ... widget will be inserted into this "section" node
-</section>
-```
-- Since this is a demo widget, only these three options are used to modify widget's look:
-
-  `button_color` - a background color for "SEARCH" button of the widget; dafault is `#f5a523`.
-  
-  `bg_color` - a background color of the widget itself; dafault is `#498fe1`.
-  
-  `font_color` - a text color for any text inside the widget; dafault is `#fff`.
-
-So, to modify widget's look, uncomment these three options and provide desired colors, like shown below.
-
-
 ```
 <script type="application/javascript" charset="utf-8">
     AS.init({
@@ -84,9 +61,33 @@ So, to modify widget's look, uncomment these three options and provide desired c
 </script>
 ```
 
+- `AS` means "Aviasales". It is a namespace for widget's properties and methods. A namespace is used to avoid polluting global `window` scope.
+- `init` is a method to initialize and run the widget.
+```
+let params = { bg_color: 'red', id: 'as_widget' };
+AS.init(params);
+```
+- `id` is an arbitrary `id` attribute of any block node you want your widget be inserted to. It is a mandatory option.
+```
+<section id="sa-widget">
+    ... widget will be inserted into this "section" node
+</section>
+```
+- Since this is a demo widget, only these three options are used to modify widget's look:
+
+  `button_color` - a background color for "SEARCH" button of the widget; dafault is `#f5a523`.
+  
+  `bg_color` - a background color of the widget itself; dafault is `#498fe1`.
+  
+  `font_color` - a text color for any text inside the widget; dafault is `#fff`.
+
+So, to modify widget's look, uncomment those three options and provide desired colors, like shown above.
+
+
+
 That's all. 
 
-All requred tasks have been implemented:
+All required tasks have been implemented:
 
 1. The widget is **responsive**. Min width == 200px, max width == 1024px;
 
