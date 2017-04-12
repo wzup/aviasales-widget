@@ -83,7 +83,7 @@ AS.init(params);
 
 So, to modify widget's look, uncomment those three options and provide desired colors, like shown above.
 
-DON'T FORGET TO RESTART NODE.JS SERVER AFTER YOU HAVE CHANGED WIDGET'S OPTIONS.
+No need to restart Node.js server after you have changed widget options.
 
 -----
 

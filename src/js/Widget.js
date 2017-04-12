@@ -12,8 +12,8 @@ class Widget extends React.Component {
          * @todo Если по серьезному, то нужна валидация входящих props. Не делаю.
          */
         let button_color = this.props.button_color ? this.props.button_color : '#f5a523';
-        let bg_color = this.props.button_color ? this.props.bg_color : '#498fe1';
-        let font_color = this.props.button_color ? this.props.font_color : '#fff';
+        let bg_color = this.props.bg_color ? this.props.bg_color : '#498fe1';
+        let font_color = this.props.font_color ? this.props.font_color : '#fff';
 
         return (
             <div className={css.saWidget} style={{backgroundColor: bg_color, color: font_color}}>
