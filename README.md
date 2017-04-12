@@ -85,8 +85,7 @@ So, to modify widget's look, uncomment those three options and provide desired c
 
 DON'T FORGET TO RESTART NODE.JS SERVER AFTER YOU HAVE CHANGED WIDGET'S OPTIONS.
 
-
-
+-----
 
 That's all. 
 
